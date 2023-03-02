@@ -9,13 +9,13 @@ import Link from "next/link";
 
 export default function ArticleCard(props) {
   return (
-    <Card elevation={12} sx={{ minWidth: 300 }} >
+    <Card elevation={12} sx={{ minWidth: 300 }}>
       <CardMedia
         sx={{ height: 140 }}
         image="https://source.unsplash.com/random"
         title="green iguana"
       />
-      <CardContent sx={{ minHeight: 150 }} >
+      <CardContent sx={{ minHeight: 150 }}>
         <Typography gutterBottom variant={props.variant} component="div">
           {props.title}
         </Typography>
@@ -25,11 +25,11 @@ export default function ArticleCard(props) {
       </CardContent>
       {props.actions && (
         <CardActions>
-        <Link href={`/Articles/${props.id}`}>
-          <Button size="small" variant="contained" color="secondary">
-            Read
-          </Button>
-        </Link>
+          <Link href={`/Articles/${props.id}`}>
+            <Button size="small" variant="contained" color="secondary">
+              Read
+            </Button>
+          </Link>
         </CardActions>
       )}
     </Card>

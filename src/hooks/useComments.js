@@ -1,7 +1,7 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
-const fetchComments = async () => {
+const getAllComments = async () => {
   try {
     const res = await axios.get(`http://localhost:8080/api/v1/comments`);
     return res.data;
@@ -10,7 +10,7 @@ const fetchComments = async () => {
   }
 };
 
-const fetchComment= async (id) => {
+const getCommentById= async (id) => {
   try {
     const res = await axios.get(`http://localhost:8080/api/v1/comments/${id}`);
     return res.data;
@@ -19,12 +19,27 @@ const fetchComment= async (id) => {
   }
 };
 
+
+
 export default function useComments() {
-  return useQuery("comments", fetchComments
+  return useQuery("comments", getAllComments
   );
 }
 
 export function useComment(id) {
-  return useQuery(["comment",id],()=> fetchComment(id));
+  return useQuery(["comment",id],()=> getCommentById(id));
 }
+
+export function useAddComment(){
+  const addCommentMutation=useMutation(
+    async (comment)=>{
+      const {data}=await axios.post("http://localhost:8080/api/v1/comments",comment)
+    return data;
+    }
+  )
+  const addComment=async (comment)=>{addCommentMutation.mutateAsync(comment)}
+return {addComment, isLoading:addCommentMutation.isLoading}
+}
+
+
 
