@@ -37,7 +37,7 @@ export function useAddComment(){
     return data;
     }
   )
-  const addComment=async (comment)=>{addCommentMutation.mutateAsync(comment)}
+  const addComment=async (comment)=>{addCommentMutation.mutate(comment)}
 return {addComment, isLoading:addCommentMutation.isLoading}
 }
 

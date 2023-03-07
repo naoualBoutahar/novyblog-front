@@ -13,30 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { AddCommentMutation, useAddComment } from "@/hooks/useComments";
 
-const getCurrentUser = () => {};
 
-const handleDrawerOpen = () => {
-  setOpen(true);
-};
-
-const handleDrawerClose = () => {
-  setOpen(false);
-};
-
-const saveComment = (e) => {
-  const newComment = {
-    content: commentContent,
-    publishDate: new Date(),
-    article: article,
-  };
-
-  addComment(newComment);
-  setCommentContent("");
-};
-
-const deleteComment = (e) => {};
-
-const editComment = () => {};
 
 export default function ArticleDetail() {
   const theme = useTheme();
@@ -44,9 +21,34 @@ export default function ArticleDetail() {
   const { id } = router.query;
   const [open, setOpen] = React.useState(false);
   const { data, isLoading, isError, error } = useArticle(id);
-  const article = data;
+  const [articlen,setArticle] = React.useState;
   const [commentContent, setCommentContent] = React.useState("");
-  const { addComment, isLoadin } = useAddComment();
+  const { addComment, CommentIsLoading } = useAddComment();
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+  
+  const getCurrentUser = () => {};
+  
+  const saveComment = (e) => {
+    const newComment = {
+      content: commentContent,
+      publishDate: new Date(),
+      article: article,
+    };
+  
+    addComment(newComment);
+    setCommentContent("");
+  };
+  
+  const deleteComment = (e) => {};
+  
+  const editComment = () => {};
 
   if (isLoading) {
     return "loading";
@@ -69,8 +71,8 @@ export default function ArticleDetail() {
             multiline
             fullWidth
             onChange={(e) => setCommentContent(e.target.value)}
-            defaultValue={commentContent}
           />
+          {console.log("test",commentContent)}
           <Grid
             width={300}
             container
@@ -107,7 +109,7 @@ export default function ArticleDetail() {
         </Box>
         <Drawer>
           <Stack spacing={3} padding={2} bgcolor="primary.main">
-            {article?.comments.map((comment) => (
+            {article.comments.map((comment) => (
               <CommentCard
                 key={comment.id}
                 content={comment.content}
